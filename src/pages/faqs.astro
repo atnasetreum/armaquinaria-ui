@@ -1,0 +1,158 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+
+const breadcrumbItems = [{ label: "FAQ's", href: "#" }];
+
+const faqSections = [
+  {
+    title: "Sales",
+    faqs: [
+      {
+        question: "What types of construction machinery do you offer for sale?",
+        answer:
+          "We offer a wide range of construction machinery including excavators, bulldozers, cranes, loaders, dump trucks, and more. Our inventory covers equipment for various construction needs, from small residential projects to large commercial developments.",
+      },
+      {
+        question: "What brands of construction machinery do you carry?",
+        answer:
+          "We carry a variety of top brands in the construction industry, including Caterpillar, Komatsu, Volvo, John Deere, and many others. We prioritize quality and reliability in all the brands we offer.",
+      },
+      {
+        question: "Do you offer financing options for machinery purchases?",
+        answer:
+          "Yes, we offer various financing options to help you acquire the machinery you need. Our financial team can work with you to find the best solution that fits your budget and business requirements.",
+      },
+      {
+        question: "What is your warranty policy on purchased equipment?",
+        answer:
+          "Our warranty policy varies depending on the specific piece of equipment and manufacturer. Generally, we offer comprehensive warranties that cover defects in materials and workmanship. Please inquire about the specific warranty terms for the equipment you're interested in.",
+      },
+    ],
+  },
+  {
+    title: "Rental",
+    faqs: [
+      {
+        question: "Do you provide rental options for your machinery?",
+        answer:
+          "Yes, we offer rental options for our construction machinery. This flexibility allows our customers to choose the best option for their specific project needs and budget constraints.",
+      },
+      {
+        question: "What are your rental terms?",
+        answer:
+          "Our rental terms are flexible and can be tailored to your project needs. We offer daily, weekly, and monthly rental options. For specific pricing and availability, please contact our rental department.",
+      },
+      {
+        question: "Is there a minimum rental period?",
+        answer:
+          "Our minimum rental period is typically one day, but this can vary depending on the type of equipment and current demand. For some specialized machinery, we might have longer minimum rental periods.",
+      },
+      {
+        question: "Can you deliver rented machinery to my job site?",
+        answer:
+          "Absolutely! We offer delivery services to transport the rented machinery directly to your job site. Delivery fees may vary based on the distance and the type of equipment being transported.",
+      },
+    ],
+  },
+  {
+    title: "Repair and Maintenance",
+    faqs: [
+      {
+        question: "Do you offer maintenance and repair services?",
+        answer:
+          "Yes, we provide comprehensive maintenance and repair services for all the machinery we sell and rent. Our team of skilled technicians ensures that your equipment remains in top condition throughout its lifecycle.",
+      },
+      {
+        question: "How quickly can you respond to repair requests?",
+        answer:
+          "We prioritize minimizing downtime for our clients. Our response time depends on the urgency of the repair and our current workload, but we always strive to address repair requests as quickly as possible, often within 24-48 hours.",
+      },
+      {
+        question: "Do you offer preventive maintenance programs?",
+        answer:
+          "Yes, we offer preventive maintenance programs designed to keep your equipment in optimal condition and prevent unexpected breakdowns. These programs can be customized based on your equipment usage and specific needs.",
+      },
+      {
+        question: "Do you offer on-site repairs?",
+        answer:
+          "Yes, for many types of repairs, we can send our mobile repair team to your job site. This service helps minimize disruption to your work schedule and reduces transportation costs for large machinery.",
+      },
+    ],
+  },
+];
+
+const title = "Preguntas frecuentes - AR Maquinaria";
+const description = `
+  Encuentra respuestas a las preguntas más comunes sobre ventas, alquiler, reparación y mantenimiento de maquinaria de construcción en AR Maquinaria.
+  `;
+---
+
+<Layout title={title} description={description}>
+  <main class="container mx-auto py-8 px-4">
+    <Breadcrumb items={breadcrumbItems} />
+    <h1 class="text-3xl font-bold mb-6 text-primary">Preguntas frecuentes</h1>
+
+    <div
+      id="accordion-flush"
+      data-accordion="collapse"
+      data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+      data-inactive-classes="text-gray-500 dark:text-gray-400"
+    >
+      {
+        faqSections.map((section, sectionIndex) => (
+          <div>
+            <h2 id={`accordion-flush-heading-${sectionIndex}`}>
+              <button
+                type="button"
+                class="flex items-center justify-between w-full py-5 font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                data-accordion-target={`#accordion-flush-body-${sectionIndex}`}
+                aria-expanded={sectionIndex === 0 ? "true" : "false"}
+                aria-controls={`accordion-flush-body-${sectionIndex}`}
+              >
+                <span>{section.title}</span>
+                <svg
+                  data-accordion-icon
+                  class="w-6 h-6 shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </h2>
+            <div
+              id={`accordion-flush-body-${sectionIndex}`}
+              class={sectionIndex === 0 ? "" : "hidden"}
+              aria-labelledby={`accordion-flush-heading-${sectionIndex}`}
+            >
+              <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                {section.faqs.map((faq, faqIndex) => (
+                  <div class="mb-4 last:mb-0">
+                    <h3 class="text-lg font-semibold mb-2 text-primary">
+                      {faq.question}
+                    </h3>
+                    <p class="text-gray-700 dark:text-gray-400">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { Accordion } from "flowbite";
+
+  // Initialize Flowbite Accordion
+  const accordionElement = document.getElementById("accordion-flush");
+  const accordion = new Accordion(accordionElement);
+</script>

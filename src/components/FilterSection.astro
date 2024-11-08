@@ -1,0 +1,74 @@
+---
+import type { Brand, Category } from "@interfaces";
+
+interface Props {
+  categories: Category[];
+  brands: Brand[];
+}
+
+const { categories, brands } = Astro.props;
+
+const sortOptions = [
+  { value: "default", label: "Default" },
+  { value: "price-low-high", label: "Precio: bajo a alto" },
+  { value: "price-high-low", label: "Precio: alto a bajo" },
+  { value: "name-a-z", label: "Name: A to Z" },
+  { value: "name-z-a", label: "Name: Z to A" },
+];
+---
+
+<aside class="w-full md:w-64 mb-6 md:mb-0">
+  <div class="bg-white p-4 rounded-lg shadow-md border border-primary">
+    <h3 class="text-lg font-semibold mb-4 text-primary">Filtros</h3>
+    <div class="mb-4">
+      <label
+        for="category-filter"
+        class="block text-sm font-medium text-gray-700 mb-2">Categoría</label
+      >
+      <select
+        id="category-filter"
+        class="w-full p-2 border rounded focus:ring-2 focus:ring-secondary focus:border-secondary"
+      >
+        <option value="all">Todas las categorias</option>
+        {
+          categories.map((category) => (
+            <option value={category.documentId}>{category.name}</option>
+          ))
+        }
+      </select>
+    </div>
+    <div class="mb-4">
+      <label
+        for="brand-filter"
+        class="block text-sm font-medium text-gray-700 mb-2">Marca</label
+      >
+      <select
+        id="brand-filter"
+        class="w-full p-2 border rounded focus:ring-2 focus:ring-secondary focus:border-secondary"
+      >
+        <option value="all">Todas las marcas</option>
+        {
+          brands.map((brand) => (
+            <option value={brand.documentId}>{brand.name}</option>
+          ))
+        }
+      </select>
+    </div>
+    <div>
+      <label
+        for="sort-filter"
+        class="block text-sm font-medium text-gray-700 mb-2">Ordenar por</label
+      >
+      <select
+        id="sort-filter"
+        class="w-full p-2 border rounded focus:ring-2 focus:ring-secondary focus:border-secondary"
+      >
+        {
+          sortOptions.map((option) => (
+            <option value={option.value}>{option.label}</option>
+          ))
+        }
+      </select>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,83 @@
+---
+import FilterSection from "@components/FilterSection.astro";
+import ProductCard from "@components/ProductCard.astro";
+import Pagination from "@components/Pagination.astro";
+
+import { BrandService, CategoryService, ProductService } from "@services";
+import Layout from "@layouts/Layout.astro";
+
+const products = await ProductService.findAll();
+
+const brands = await BrandService.findAll();
+
+const categories = await CategoryService.findAll();
+
+// Pagination
+const productsPerPage = 9;
+const currentPage = parseInt(Astro.url.searchParams.get("page") || "1");
+const totalPages = Math.ceil(products.length / productsPerPage);
+const paginatedProducts = products.slice(
+  (currentPage - 1) * productsPerPage,
+  currentPage * productsPerPage
+);
+
+const title = "AR Maquinaria - High-Quality Construction Machinery";
+const description =
+  "Discover our wide range of construction machinery. We offer sales and rentals of excavators, bulldozers, cranes, and more. Find reliable solutions for your construction projects.";
+---
+
+<Layout title={title} description={description}>
+  <main class="container mx-auto py-8 px-4">
+    <!-- <h1 class="text-3xl font-bold mb-6 text-center text-primary">Maquinaria</h1> -->
+    <div class="flex flex-col md:flex-row gap-8">
+      <FilterSection categories={categories} brands={brands} />
+      <div class="flex-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            paginatedProducts.map((product) => (
+              <ProductCard product={product} />
+            ))
+          }
+        </div>
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  function updateFilters() {
+    const categoryFilter = document.getElementById(
+      "category-filter"
+    ) as HTMLSelectElement;
+    const brandFilter = document.getElementById(
+      "brand-filter"
+    ) as HTMLSelectElement;
+    const selectedCategory = categoryFilter.value;
+    const selectedBrand = brandFilter.value;
+
+    const productCards = document.querySelectorAll(".product-card");
+    productCards.forEach((card: Element) => {
+      const cardElement = card as HTMLElement;
+      const category = cardElement.dataset.category;
+      const brand = cardElement.dataset.brand;
+
+      const categoryMatch =
+        selectedCategory === "all" || category === selectedCategory;
+      const brandMatch = selectedBrand === "all" || brand === selectedBrand;
+
+      if (categoryMatch && brandMatch) {
+        cardElement.style.display = "block";
+      } else {
+        cardElement.style.display = "none";
+      }
+    });
+  }
+
+  document
+    .getElementById("category-filter")
+    ?.addEventListener("change", updateFilters);
+  document
+    .getElementById("brand-filter")
+    ?.addEventListener("change", updateFilters);
+</script>

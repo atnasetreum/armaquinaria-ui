@@ -1,0 +1,251 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import ContactButton from "../components/ContactButton.astro";
+
+const breadcrumbItems = [{ label: "Sobre Nosotros", href: "#" }];
+
+const title =
+  "Sobre Nosotros - AR Maquinaria | Líderes en Maquinaria de Construcción";
+const description =
+  "Descubre la historia, valores y equipo detrás de AR Maquinaria. Más de 20 años de experiencia en venta y alquiler de maquinaria de construcción de alta calidad. Comprometidos con la innovación, calidad y satisfacción del cliente.";
+
+const teamMembers = [
+  {
+    name: "Ana Rodríguez",
+    position: "CEO y Fundadora",
+    image: "https://via.placeholder.com/150?text=Ana+R",
+  },
+  {
+    name: "Carlos Martínez",
+    position: "Director de Operaciones",
+    image: "https://via.placeholder.com/150?text=Carlos+M",
+  },
+  {
+    name: "Laura Sánchez",
+    position: "Jefa de Ventas",
+    image: "https://via.placeholder.com/150?text=Laura+S",
+  },
+  {
+    name: "Miguel Ángel Torres",
+    position: "Jefe de Mantenimiento",
+    image: "https://via.placeholder.com/150?text=Miguel+T",
+  },
+];
+
+const testimonials = [
+  {
+    name: "Juan Pérez",
+    company: "Construcciones XYZ",
+    text: "AR Maquinaria ha sido un socio invaluable en nuestros proyectos. Su maquinaria de alta calidad y excelente servicio al cliente han mejorado significativamente nuestra eficiencia.",
+  },
+  {
+    name: "María González",
+    company: "Edificaciones Modernas",
+    text: "Hemos confiado en AR Maquinaria durante años. Su compromiso con la innovación y la calidad es inigualable en la industria.",
+  },
+  {
+    name: "Pedro Ramírez",
+    company: "Obras Públicas S.A.",
+    text: "El servicio de alquiler de AR Maquinaria es excepcional. Siempre tienen el equipo que necesitamos, cuando lo necesitamos.",
+  },
+  {
+    name: "Laura Fernández",
+    company: "Constructora del Norte",
+    text: "La atención al cliente de AR Maquinaria es sobresaliente. Siempre están dispuestos a ir más allá para satisfacer nuestras necesidades.",
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <main class="container mx-auto py-8 px-4">
+    <Breadcrumb items={breadcrumbItems} />
+    <h1 class="text-4xl font-bold mb-6 text-primary">Sobre AR Maquinaria</h1>
+
+    <!-- Sección de Introducción -->
+    <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-3xl font-semibold mb-4 text-primary">Nuestra Historia</h2>
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-4 md:mb-0 md:pr-4">
+          <img
+            src="https://como-funciona.co/wp-content/uploads/2018/09/imagen1-png.png"
+            alt="Fundación de AR Maquinaria"
+            class="w-full h-auto rounded-lg"
+            width="600"
+            height="400"
+          />
+        </div>
+        <div class="md:w-1/2">
+          <p class="text-gray-700 mb-4 text-justify">
+            Fundada en el año 1995, AR Maquinaria nació con la visión de
+            revolucionar la industria de la maquinaria de construcción en
+            España. Desde nuestros humildes inicios como una pequeña empresa
+            familiar, hemos crecido hasta convertirnos en un referente nacional
+            en la venta y alquiler de equipos de construcción de alta calidad.
+          </p>
+          <p class="text-gray-700 text-justify">
+            A lo largo de más de dos décadas, hemos mantenido nuestro compromiso
+            con la excelencia, la innovación y el servicio al cliente,
+            adaptándonos constantemente a las cambiantes necesidades del sector
+            de la construcción y la obra pública.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Valores -->
+    <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-3xl font-semibold mb-6 text-primary">Nuestros Valores</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12 mx-auto mb-4 text-secondary"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">Calidad</h3>
+          <p class="text-gray-600">
+            Ofrecemos solo maquinaria de la más alta calidad, respaldada por las
+            mejores marcas del sector.
+          </p>
+        </div>
+        <div class="text-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12 mx-auto mb-4 text-secondary"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">Innovación</h3>
+          <p class="text-gray-600">
+            Nos mantenemos a la vanguardia de la tecnología para ofrecer
+            soluciones innovadoras a nuestros clientes.
+          </p>
+        </div>
+        <div class="text-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12 mx-auto mb-4 text-secondary"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+            ></path>
+          </svg>
+          <h3 class="text-xl font-semibold mb-2">Servicio al Cliente</h3>
+          <p class="text-gray-600">
+            Nuestro equipo está dedicado a proporcionar un servicio excepcional
+            y soporte técnico experto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Equipo -->
+    <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-3xl font-semibold mb-6 text-primary">Nuestro Equipo</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {
+          teamMembers.map((member) => (
+            <div class="text-center">
+              <img
+                src={member.image}
+                alt={member.name}
+                class="w-32 h-32 rounded-full mx-auto mb-4"
+                width="128"
+                height="128"
+              />
+              <h3 class="text-xl font-semibold mb-1">{member.name}</h3>
+              <p class="text-gray-600">{member.position}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Sección de Testimonios -->
+    <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-3xl font-semibold mb-6 text-primary">
+        Lo que dicen nuestros clientes
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          testimonials.map((testimonial) => (
+            <div class="bg-gray-100 p-6 rounded-lg">
+              <p class="text-gray-700 mb-4">"{testimonial.text}"</p>
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+                  {testimonial.name.charAt(0)}
+                </div>
+                <div>
+                  <p class="font-semibold">{testimonial.name}</p>
+                  <p class="text-gray-600">{testimonial.company}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Sección de Llamada a la Acción -->
+    <section class="bg-primary text-white rounded-lg shadow-md p-8 text-center">
+      <h2 class="text-3xl font-bold mb-4">
+        ¿Listo para trabajar con nosotros?
+      </h2>
+      <p class="text-xl mb-6">
+        Descubre cómo AR Maquinaria puede impulsar tu próximo proyecto de
+        construcción.
+      </p>
+      <ContactButton text="Contáctanos ahora" class="text-lg px-8 py-3" />
+    </section>
+  </main>
+</Layout>
+
+<!-- Structured Data for Local Business -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "AR Maquinaria",
+    "image": "https://www.armaquinaria.com/logo.png",
+    "description": "AR Maquinaria es un proveedor líder de maquinaria de construcción de alta calidad para venta y alquiler, con más de 20 años de experiencia en el sector.",
+    "foundingDate": "2000",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Av. Construcción",
+      "addressLocality": "Ciudad Edificio",
+      "addressRegion": "Estado",
+      "postalCode": "12345",
+      "addressCountry": "ES"
+    },
+    "telephone": "+34-555-123-4567",
+    "url": "https://www.armaquinaria.com",
+    "sameAs": [
+      "https://www.facebook.com/armaquinaria",
+      "https://www.twitter.com/armaquinaria",
+      "https://www.linkedin.com/company/armaquinaria",
+      "https://www.instagram.com/armaquinaria"
+    ]
+  }
+</script>

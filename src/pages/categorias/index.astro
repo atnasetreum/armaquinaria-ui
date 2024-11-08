@@ -1,0 +1,51 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import { CategoryService } from "@services";
+import { addDomainImg } from "@utils";
+
+const categories = await CategoryService.findAll();
+
+const breadcrumbItems = [{ label: "Categorias", href: "#" }];
+---
+
+<Layout title="Categories - Construction Machinery Store">
+  <main class="container mx-auto py-8 px-4">
+    <Breadcrumb items={breadcrumbItems} />
+    <div class="py-16 px-4 sm:px-6 lg:px-8">
+      <h2
+        class="text-4xl font-extrabold tracking-tight text-center mb-12 text-primary"
+      >
+        Explora nuestras categorias
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          categories.map((category) => {
+            const imgCategory = addDomainImg(category.image.url);
+            return (
+              <div class="bg-white rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 border border-gray-200">
+                <img
+                  src={imgCategory}
+                  alt={category.name}
+                  class="w-full h-48 object-cover"
+                />
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold mb-2 text-primary">
+                    {category.name}
+                  </h3>
+                  <p class="text-gray-600 mb-4">{category.short_description}</p>
+                  <a
+                    href={`/categorias/${category.slug}`}
+                    class="inline-block bg-secondary text-white font-bold py-2 px-4 rounded hover:bg-opacity-80 transition-colors"
+                  >
+                    Ver productos
+                  </a>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </main>
+</Layout>

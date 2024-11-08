@@ -1,0 +1,245 @@
+---
+import RentalPriceTable from "@components/RentalPriceTable.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import Layout from "@layouts/Layout.astro";
+import { ProductService } from "@services";
+import type { Product } from "@interfaces";
+import { addDomainImg } from "@utils";
+
+interface Props {
+  product: Product;
+}
+
+export async function getStaticPaths() {
+  const products = await ProductService.findAll();
+
+  return products.map((product) => ({
+    params: { slug: product.slug.toString() },
+    props: { product },
+  }));
+}
+
+const { slug } = Astro.params;
+const { product } = Astro.props;
+
+const urlImg = addDomainImg(product.images[0].formats.small.url);
+
+const breadcrumbItems = [
+  {
+    label: product.category.name,
+    href: `/categorias/${product.category.slug}`,
+  },
+  {
+    label: product.brand.name,
+    href: `/marcas/${product.brand.slug}`,
+  },
+  { label: product.name, href: "#" },
+];
+---
+
+<Layout title={`${product.name} - Construction Machinery Store`}>
+  <main class="container mx-auto py-8 px-4">
+    <div class="mb-4 flex items-center justify-between">
+      <Breadcrumb items={breadcrumbItems} />
+      <a
+        href="/"
+        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-primary rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300"
+      >
+        <svg
+          class="w-4 h-4 mr-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Volver a productos
+      </a>
+    </div>
+    <div
+      class="bg-white rounded-lg shadow-md overflow-hidden border border-primary"
+    >
+      <div class="flex flex-col md:flex-row">
+        <div class="md:w-1/2 flex items-center justify-center bg-gray-100 p-4">
+          <img
+            src={urlImg}
+            alt={product.name}
+            class="w-full h-auto object-contain max-h-[400px]"
+            transition:name={`product-image-${product.documentId}`}
+          />
+        </div>
+        <div class="md:w-1/2 p-6">
+          <h1 class="text-3xl font-bold mb-4 text-primary">{product.name}</h1>
+
+          <!-- Badges and Rating -->
+          <div class="flex items-center space-x-2 mb-4">
+            <span
+              class="bg-secondary text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded"
+              >Promoción</span
+            >
+            <span
+              class="bg-primary text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded"
+              >Más rentado</span
+            >
+            <div class="flex items-center">
+              <svg
+                class="w-4 h-4 text-yellow-300 mr-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 22 20"
+              >
+                <path
+                  d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                ></path>
+              </svg>
+              <p class="ml-2 text-sm font-bold text-gray-900 dark:text-white">
+                4.5
+              </p>
+              <span
+                class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"
+              ></span>
+              <a
+                href="#"
+                class="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white"
+                >73 reseñas</a
+              >
+            </div>
+          </div>
+
+          <!-- Centered Tabs -->
+          <div class="mb-4 flex justify-center">
+            <ul class="flex border-b">
+              <li class="mr-1">
+                <a
+                  class="bg-white inline-block py-2 px-4 text-primary font-semibold border-l border-t border-r rounded-t"
+                  href="#"
+                  data-tab="main">Información</a
+                >
+              </li>
+              <li class="mr-1">
+                <a
+                  class="bg-white inline-block py-2 px-4 text-gray-500 hover:text-primary font-semibold"
+                  href="#"
+                  data-tab="rental">Renta</a
+                >
+              </li>
+              <li class="mr-1">
+                <a
+                  class="bg-white inline-block py-2 px-4 text-gray-500 hover:text-primary font-semibold"
+                  href="#"
+                  data-tab="tech">Datos técnicos</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab Content -->
+          <div id="mainInfo" class="tab-content">
+            <p class="text-gray-600 mb-4 text-justify">{product.description}</p>
+            <p class="text-xl font-bold mb-2 text-primary">
+              Precio: ${product.price.toLocaleString()}
+            </p>
+            <p class="text-gray-600 mb-2">
+              Categoría: <b>{product.category.name}</b>
+            </p>
+            <p class="text-gray-600 mb-4">Marca: <b>{product.brand.name}</b></p>
+            <!-- <button
+              class="bg-secondary text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-opacity-90 transition-colors"
+            >
+              Add to Cart
+            </button> -->
+          </div>
+
+          <div id="rentalInfo" class="tab-content hidden">
+            <h2 class="text-2xl font-bold mb-4 text-primary">Rental Prices</h2>
+            <RentalPriceTable
+              dailyPrice={Number(product.rent_1_day)}
+              weeklyPrice={Number(product.rent_7_days)}
+              biweeklyPrice={Number(product.rent_15_days)}
+              monthlyPrice={Number(product.rent_30_days)}
+            />
+          </div>
+
+          <div id="techSpecs" class="tab-content hidden">
+            <h2 class="text-2xl font-bold mb-4 text-primary">
+              Technical Specifications
+            </h2>
+            <!-- <ul class="space-y-2">
+              <li><strong>Weight:</strong> {product.technicalSpecs.weight}</li>
+              <li>
+                <strong>Dimensions:</strong>
+                {product.technicalSpecs.dimensions}
+              </li>
+              <li>
+                <strong>Engine Power:</strong>
+                {product.technicalSpecs.enginePower}
+              </li>
+              <li>
+                <strong>Fuel Type:</strong>
+                {product.technicalSpecs.fuelType}
+              </li>
+              <li>
+                <strong>Operating Capacity:</strong>
+                {product.technicalSpecs.operatingCapacity}
+              </li>
+              <li>
+                <strong>Max Speed:</strong>
+                {product.technicalSpecs.maxSpeed}
+              </li>
+            </ul> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const tabs = document.querySelectorAll("[data-tab]");
+  const tabContents = document.querySelectorAll(".tab-content");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = tab.getAttribute("data-tab");
+
+      // Update active tab
+      tabs.forEach((t) =>
+        t.classList.remove(
+          "text-primary",
+          "border-l",
+          "border-t",
+          "border-r",
+          "rounded-t"
+        )
+      );
+      tab.classList.add(
+        "text-primary",
+        "border-l",
+        "border-t",
+        "border-r",
+        "rounded-t"
+      );
+
+      // Show/hide tab contents
+      tabContents.forEach((content) => {
+        if (content.id === targetId + "Info") {
+          content.classList.remove("hidden");
+        } else {
+          content.classList.add("hidden");
+        }
+      });
+    });
+  });
+
+  // Set the first tab as active by default
+  if (tabs.length > 0) {
+    tabs[0].click();
+  }
+</script>

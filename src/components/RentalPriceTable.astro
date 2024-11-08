@@ -1,0 +1,39 @@
+---
+interface Props {
+  dailyPrice: number;
+  weeklyPrice: number;
+  biweeklyPrice: number;
+  monthlyPrice: number;
+}
+
+const { dailyPrice, weeklyPrice, biweeklyPrice, monthlyPrice } = Astro.props;
+---
+
+<div class="overflow-x-auto">
+  <table class="w-full text-sm text-left text-gray-500">
+    <thead class="text-xs text-white uppercase bg-primary">
+      <tr>
+        <th scope="col" class="px-6 py-3">Rental Period</th>
+        <th scope="col" class="px-6 py-3">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Daily</th>
+        <td class="px-6 py-4">${dailyPrice.toLocaleString()}</td>
+      </tr>
+      <tr class="bg-gray-50 border-b hover:bg-gray-100">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Weekly</th>
+        <td class="px-6 py-4">${weeklyPrice.toLocaleString()}</td>
+      </tr>
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">15 Days</th>
+        <td class="px-6 py-4">${biweeklyPrice.toLocaleString()}</td>
+      </tr>
+      <tr class="bg-gray-50 border-b hover:bg-gray-100">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">30 Days</th>
+        <td class="px-6 py-4">${monthlyPrice.toLocaleString()}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
