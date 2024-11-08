@@ -21,9 +21,12 @@ const paginatedProducts = products.slice(
   currentPage * productsPerPage
 );
 
-const title = "AR Maquinaria - High-Quality Construction Machinery";
-const description =
-  "Discover our wide range of construction machinery. We offer sales and rentals of excavators, bulldozers, cranes, and more. Find reliable solutions for your construction projects.";
+const title = "Productos - AR Maquinaria";
+const description = `
+  Explora nuestra amplia gama de maquinaria de construcción de alta calidad, los productos que tenemos son ${
+    products.map((product) => product.name).join(", ") || "..."
+  }. 
+  `;
 ---
 
 <Layout title={title} description={description}>

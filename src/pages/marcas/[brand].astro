@@ -3,8 +3,8 @@ import ProductCard from "@components/ProductCard.astro";
 import Pagination from "@components/Pagination.astro";
 
 import { BrandService, ProductService } from "@services";
-import Layout from "@layouts/Layout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const brands = await BrandService.findAll();

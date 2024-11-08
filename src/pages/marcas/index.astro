@@ -1,15 +1,28 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
 import Breadcrumb from "@components/Breadcrumb.astro";
 import Layout from "@layouts/Layout.astro";
 import { BrandService } from "@services";
-import { addDomainImg } from "@utils";
 
 const brands = await BrandService.findAll();
 
 const breadcrumbItems = [{ label: "Marcas", href: "#" }];
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/brands/*.{jpeg,jpg,png,gif,webp}"
+);
+
+const title = "Marcas - AR Maquinaria";
+const description = `
+  Explora nuestras marcas de maquinaria de construcción de alta calidad, las marcas que tenemos son ${
+    brands.map((brand) => brand.name).join(", ") || "..."
+  }.
+  `;
 ---
 
-<Layout title="Brands - Construction Machinery Store">
+<Layout title={title} description={description}>
   <main class="container mx-auto py-8 px-4">
     <Breadcrumb items={breadcrumbItems} />
     <div class="py-16 px-4 sm:px-6 lg:px-8">
@@ -21,11 +34,17 @@ const breadcrumbItems = [{ label: "Marcas", href: "#" }];
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
           brands.map((brand) => {
-            const imgBrand = addDomainImg(brand.image.url);
-
             return (
               <div class="bg-white rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 border border-gray-200">
-                <img src={imgBrand} alt={brand.name} class="w-full h-48" />
+                {/* <img src={imgBrand} alt={brand.name} class="w-full h-48" /> */}
+                <Image
+                  src={images[
+                    `/src/assets/images/brands/${brand.name_image}`
+                  ]()}
+                  alt={brand.name}
+                  class="w-full h-48"
+                  loading="lazy"
+                />
                 <div class="p-6">
                   <h3 class="text-2xl font-bold mb-2 text-primary">
                     {brand.name}

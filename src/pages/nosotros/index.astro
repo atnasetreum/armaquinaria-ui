@@ -1,14 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Breadcrumb from "../components/Breadcrumb.astro";
-import ContactButton from "../components/ContactButton.astro";
+import ContactButton from "@components/ContactButton.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import Layout from "@layouts/Layout.astro";
 
 const breadcrumbItems = [{ label: "Sobre Nosotros", href: "#" }];
 
-const title =
-  "Sobre Nosotros - AR Maquinaria | Líderes en Maquinaria de Construcción";
-const description =
-  "Descubre la historia, valores y equipo detrás de AR Maquinaria. Más de 20 años de experiencia en venta y alquiler de maquinaria de construcción de alta calidad. Comprometidos con la innovación, calidad y satisfacción del cliente.";
+const title = "Nosotros - AR Maquinaria";
+const description = `
+  Descubre la historia, los valores y el equipo detrás de AR Maquinaria, tu socio confiable en maquinaria de construcción.
+  `;
 
 const teamMembers = [
   {

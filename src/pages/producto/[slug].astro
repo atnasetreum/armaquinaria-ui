@@ -1,10 +1,11 @@
 ---
+import { Image } from "astro:assets";
+
 import RentalPriceTable from "@components/RentalPriceTable.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import Layout from "@layouts/Layout.astro";
 import { ProductService } from "@services";
 import type { Product } from "@interfaces";
-import { addDomainImg } from "@utils";
 
 interface Props {
   product: Product;
@@ -22,8 +23,6 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const { product } = Astro.props;
 
-const urlImg = addDomainImg(product.images[0].formats.small.url);
-
 const breadcrumbItems = [
   {
     label: product.category.name,
@@ -35,6 +34,10 @@ const breadcrumbItems = [
   },
   { label: product.name, href: "#" },
 ];
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/products/*.{jpeg,jpg,png,gif,webp}"
+);
 ---
 
 <Layout title={`${product.name} - Construction Machinery Store`}>
@@ -66,10 +69,17 @@ const breadcrumbItems = [
     >
       <div class="flex flex-col md:flex-row">
         <div class="md:w-1/2 flex items-center justify-center bg-gray-100 p-4">
-          <img
+          <!-- <img
             src={urlImg}
             alt={product.name}
             class="w-full h-auto object-contain max-h-[400px]"
+            transition:name={`product-image-${product.documentId}`}
+          /> -->
+          <Image
+            src={images[`/src/assets/images/products/${product.name_image}`]()}
+            alt={product.name}
+            class="w-full h-auto object-contain max-h-[400px]"
+            loading="lazy"
             transition:name={`product-image-${product.documentId}`}
           />
         </div>

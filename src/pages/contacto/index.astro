@@ -1,12 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Breadcrumb from "../components/Breadcrumb.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import Layout from "@layouts/Layout.astro";
 
 const breadcrumbItems = [{ label: "Contacto", href: "#" }];
 
-const title = "Contacto - AR Maquinaria | Estamos aquí para ayudarte";
-const description =
-  "Ponte en contacto con AR Maquinaria para todas tus necesidades de maquinaria de construcción. Nuestro equipo experto está listo para asistirte con ventas, alquileres y soporte técnico.";
+const title = "Contacto - AR Maquinaria";
+const description = `
+  Ponte en contacto con AR Maquinaria para todas tus necesidades de maquinaria de construcción.
+  `;
 ---
 
 <Layout title={title} description={description}>

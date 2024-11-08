@@ -1,7 +1,7 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Breadcrumb from "@components/Breadcrumb.astro";
 import ContactButton from "@components/ContactButton.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import Layout from "@layouts/Layout.astro";
 
 const breadcrumbItems = [{ label: "Servicios", href: "#" }];
 
@@ -26,11 +26,10 @@ const services = [
   },
 ];
 
-const title =
-  "Nuestros Servicios - AR Maquinaria | Soluciones Expertas en Maquinaria de Construcción";
-
-const description =
-  "Descubra nuestra amplia gama de servicios de maquinaria de construcción, que incluye ventas, alquileres y reparaciones por parte de expertos. Soluciones de calidad para todas sus necesidades de construcción.";
+const title = "Servicios - AR Maquinaria";
+const description = `
+  Descubra los servicios de AR Maquinaria para la venta, renta y reparación de maquinaria de construcción en México.
+  `;
 ---
 
 <Layout title={title} description={description}>
