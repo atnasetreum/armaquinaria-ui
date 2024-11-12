@@ -16,7 +16,15 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 );
 ---
 
-<a href={`/producto/${product.slug}`} class="block">
+<a
+  href={`/producto/${product.slug}`}
+  class="card-product-main"
+  style="display:block"
+  data-category={product.category.slug}
+  data-brand={product.brand.slug}
+  data-name={product.name}
+  data-price={product.price}
+>
   <div
     class="product-card bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl border border-primary"
     data-category={product.category.name}

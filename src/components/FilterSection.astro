@@ -9,11 +9,11 @@ interface Props {
 const { categories, brands } = Astro.props;
 
 const sortOptions = [
-  { value: "default", label: "Default" },
-  { value: "price-low-high", label: "Precio: bajo a alto" },
-  { value: "price-high-low", label: "Precio: alto a bajo" },
-  { value: "name-a-z", label: "Name: A to Z" },
-  { value: "name-z-a", label: "Name: Z to A" },
+  { value: "default", label: "Ninguno" },
+  { value: "price-low-high", label: "Precio: Bajo a alto" },
+  { value: "price-high-low", label: "Precio: Alto a bajo" },
+  { value: "name-a-z", label: "Nombre: A to Z" },
+  { value: "name-z-a", label: "Nombre: Z to A" },
 ];
 ---
 
@@ -32,7 +32,7 @@ const sortOptions = [
         <option value="all">Todas las categorias</option>
         {
           categories.map((category) => (
-            <option value={category.documentId}>{category.name}</option>
+            <option value={category.slug}>{category.name}</option>
           ))
         }
       </select>
@@ -49,7 +49,7 @@ const sortOptions = [
         <option value="all">Todas las marcas</option>
         {
           brands.map((brand) => (
-            <option value={brand.documentId}>{brand.name}</option>
+            <option value={brand.slug}>{brand.name}</option>
           ))
         }
       </select>

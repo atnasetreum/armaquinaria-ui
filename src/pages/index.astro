@@ -1,9 +1,8 @@
 ---
+import { BrandService, CategoryService, ProductService } from "@services";
 import FilterSection from "@components/FilterSection.astro";
 import ProductCard from "@components/ProductCard.astro";
 import Pagination from "@components/Pagination.astro";
-
-import { BrandService, CategoryService, ProductService } from "@services";
 import Layout from "@layouts/Layout.astro";
 
 const products = await ProductService.findAll();
@@ -31,7 +30,7 @@ const description = `
 
 <Layout title={title} description={description}>
   <main class="container mx-auto py-8 px-4">
-    <!-- <h1 class="text-3xl font-bold mb-6 text-center text-primary">Maquinaria</h1> -->
+    <!-- <h1 class="text-3xl font-bold mb-6 text-center text-primary">Productos disponibles</h1> -->
     <div class="flex flex-col md:flex-row gap-8">
       <FilterSection categories={categories} brands={brands} />
       <div class="flex-1">
@@ -59,7 +58,8 @@ const description = `
     const selectedCategory = categoryFilter.value;
     const selectedBrand = brandFilter.value;
 
-    const productCards = document.querySelectorAll(".product-card");
+    const productCards = document.querySelectorAll(".card-product-main");
+
     productCards.forEach((card: Element) => {
       const cardElement = card as HTMLElement;
       const category = cardElement.dataset.category;
@@ -77,10 +77,53 @@ const description = `
     });
   }
 
+  function sortFilters() {
+    const sortFilter = document.getElementById(
+      "sort-filter"
+    ) as HTMLSelectElement;
+
+    const selectedSort = sortFilter.value;
+
+    const productCards = document.querySelectorAll(".card-product-main");
+
+    const sortedCards = Array.from(productCards).sort((a, b) => {
+      const cardA = a as HTMLElement;
+      const cardB = b as HTMLElement;
+
+      const nameA = cardA.dataset.name;
+      const nameB = cardB.dataset.name;
+      const priceA = parseFloat(cardA.dataset.price);
+      const priceB = parseFloat(cardB.dataset.price);
+
+      if (selectedSort === "name-a-z") {
+        return nameA.localeCompare(nameB);
+      } else if (selectedSort === "name-z-a") {
+        return nameB.localeCompare(nameA);
+      } else if (selectedSort === "price-low-high") {
+        return priceA - priceB;
+      } else if (selectedSort === "price-high-low") {
+        return priceB - priceA;
+      }
+
+      return 0;
+    });
+
+    const productContainer = document.querySelector(".grid");
+    productContainer.innerHTML = "";
+    sortedCards.forEach((card) => {
+      productContainer.appendChild(card);
+    });
+  }
+
   document
     .getElementById("category-filter")
     ?.addEventListener("change", updateFilters);
+
   document
     .getElementById("brand-filter")
     ?.addEventListener("change", updateFilters);
+
+  document
+    .getElementById("sort-filter")
+    ?.addEventListener("change", sortFilters);
 </script>
